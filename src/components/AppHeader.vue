@@ -3,7 +3,7 @@
     <nav class="container mx-auto flex justify-start items-center py-5 px-4">
       <!-- App Name -->
       <a class="text-white font-bold uppercase text-2xl mr-4" href="#"
-      >Music</a
+      >Musik</a
       >
 
       <div class="flex flex-grow items-center">
