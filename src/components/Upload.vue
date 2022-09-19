@@ -48,6 +48,7 @@
 import {storage, auth, songsCollection} from '../includes/firebase'
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Upload",
   data(){
     return{
