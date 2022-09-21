@@ -49,7 +49,6 @@
 import {songsCollection} from "../includes/firebase";
 import SongItem from "../components/SongItem.vue";
 import IconSecondary from '../directives/icon-secondary'
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Home",
@@ -66,7 +65,6 @@ export default {
   },
   async created(){
     await this.getSongs();
-
     window.addEventListener('scroll', this.handleScroll);
   },
   beforeUnmount() {
@@ -77,12 +75,10 @@ export default {
       const {scrollTop, offsetHeight} = document.documentElement;
       const {innerHeight} = window
       const bottomOfWindow= Math.round(scrollTop) + innerHeight === offsetHeight
-
       if(bottomOfWindow){
         console.log('Bottom of window')
       }
     },
-
     async getSongs(){
       if(this.pendingRequest){
         return;
@@ -110,7 +106,6 @@ export default {
           ...document.data()
         })
       })
-
       this.pendingRequest = false
     }
   }

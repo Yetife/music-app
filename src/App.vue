@@ -1,13 +1,11 @@
 <template>
   <app-header />
 
-<!--  <router-view v-slot="{ Component }">-->
-<!--    <transition name="fade" mode="out-in">-->
-<!--      <component :is="Component"></component>-->
-<!--    </transition>-->
-<!--  </router-view>-->
-
-  <router-view></router-view>
+  <router-view v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
 
   <app-player />
 
@@ -15,8 +13,8 @@
 </template>
 
 <script>
-import AppHeader from "@/components/AppHeader.vue";
-import Auth from "@/components/AppAuth.vue";
+import AppHeader from "@/components/Header.vue";
+import Auth from "@/components/Auth.vue";
 import { mapWritableState } from "pinia";
 import useUserStore from "@/stores/user";
 import { auth } from "./includes/firebase";
@@ -50,7 +48,7 @@ export default {
 }
 
 .fade-leave-to {
-  transition: all 0s linear;
+  transition: all 0s lienar;
   opacity: 0;
 }
 </style>

@@ -3,7 +3,7 @@
   <section class="container mx-auto mt-6">
     <div class="md:grid md:grid-cols-3 md:gap-4">
       <div class="col-span-1">
-       <upload ref="upload" :addSong="addSong"></upload>
+        <upload ref="upload" :addSong="addSong"></upload>
       </div>
       <div class="col-span-2">
         <div
@@ -37,7 +37,6 @@
 import Upload from '../components/Upload.vue'
 import {songsCollection, auth} from "../includes/firebase";
 import CompositionItem from "../components/CompositionItem.vue";
-
 export default {
   name: "Manage",
   components: {CompositionItem, Upload},
@@ -96,5 +95,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

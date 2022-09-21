@@ -86,7 +86,6 @@ import {songsCollection, auth, commentsCollection} from "../includes/firebase";
 import {mapState, mapActions} from "pinia";
 import useUserStore from'../stores/user'
 import usePlayerStore from "../stores/player"
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Song",
@@ -107,43 +106,35 @@ export default {
   computed: {
     ...mapState(useUserStore, ["userLoggedIn"]),
     ...mapState(usePlayerStore, ["playing"]),
-
     sortedComments(){
       return this.comments.slice().sort((a, b) => {
-          if (this.sort === '1'){
-            return new Date(b.datePosted) - new Date(a.datePosted)
-          }
-
+        if (this.sort === '1'){
+          return new Date(b.datePosted) - new Date(a.datePosted)
+        }
         return new Date(a.datePosted) - new Date(b.datePosted)
       })
     }
   },
   async beforeRouteEnter(to, from, next){
-   const docSnapshot = await songsCollection.doc(to.params.id).get()
-
+    const docSnapshot = await songsCollection.doc(to.params.id).get()
     next((vm)=>{
       if(!docSnapshot.exists){
         vm.$router.push({name: 'home'})
         return
       }
-
       const { sort } = vm.$route.query;
       vm.sort = sort === '1' || sort === '2' ? sort : '1';
-
-      this.song = docSnapshot.data()
+      vm.song = docSnapshot.data()
       vm.getComments()
-
     });
-
   },
   methods: {
     ...mapActions(usePlayerStore, ["newSong"]),
     async addComment(values, {resetForm}){
-          this.comment_in_submission = true,
+      this.comment_in_submission = true,
           this.comment_show_alert =  true,
           this.comment_alert_variant = 'bg-blue-500',
           this.comment_alert_message = 'Please wait! Your comment is being submitted'
-
       const comment ={
         content: values.comment,
         datePosted: new Date().toString(),
@@ -151,35 +142,27 @@ export default {
         name: auth.currentUser.displayName,
         uid: auth.currentUser.uid,
       };
-
       await commentsCollection.add(comment)
-
       this.song.comment_count += 1
       await songsCollection.doc(this.$route.params.id).update({
         comment_count: this.song.comment_count
       })
-
       await this.getComments()
-
       this.comment_in_submission = false
       this.comment_alert_variant = 'bg-green-500';
       this.comment_alert_message = 'Comment added'
-
       resetForm();
     },
-
     async getComments(){
       const snapshots = await commentsCollection
           .where('sid', '==', this.$route.params.id)
           .get();
-
       this.comments = [];
-
       snapshots.forEach((doc) => [
-          this.comments.push({
-            docID: doc.id,
-            ...doc.data()
-          })
+        this.comments.push({
+          docID: doc.id,
+          ...doc.data()
+        })
       ])
     }
   },
@@ -199,5 +182,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
